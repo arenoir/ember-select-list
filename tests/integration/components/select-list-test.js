@@ -183,3 +183,25 @@ test('binds properly to `title` attribute', function(assert) {
 
   assert.equal(this.$('select').attr('title'), title);
 });
+
+
+test('optionValuePath properly may be null', function(assert) {
+  var options = [
+    {id: 1, label: 'Item A'},
+    {id: 2, label: 'Item B'},
+    {id: 3, label: 'Item C'}
+  ];
+
+  var value = options[1];
+
+  this.set('optionValuePath', null);
+  this.set('optionLabelPath', 'label');
+  this.set('options', options);
+  this.set('value', value);
+
+  this.render(hbs`
+    {{select-list content=options value=value optionLabelPath=optionLabelPath optionValuePath=optionValuePath}}
+  `);
+
+  assert.equal(this.$('select option:selected').text().trim(), 'Item B');
+});

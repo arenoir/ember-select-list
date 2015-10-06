@@ -1,5 +1,7 @@
 import Ember from 'ember';
 
+const {get} = Ember;
+
 export default Ember.Component.extend({
 
   tagName: 'select',
@@ -38,7 +40,8 @@ export default Ember.Component.extend({
 
     const selection = content[contentIndex];
 
-    const value = this.attrs.optionValuePath ? Ember.get(selection, this.get('optionValuePath')) : selection;
+    const optionValuePath = this.get('optionValuePath');
+    const value = optionValuePath ? get(selection, optionValuePath) : selection;
 
     // set the local, shadowed selection to avoid leaking
     // changes to `selection` out via 2-way binding
