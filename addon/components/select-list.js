@@ -31,24 +31,24 @@ export default Ember.Component.extend({
   },
 
   change() {
-    const selectEl = this.element;
-    const selectedIndex = selectEl.selectedIndex;
-    const content = this.get('content');
+    let selectEl = this.element;
+    let selectedIndex = selectEl.selectedIndex;
+    let content = this.get('content');
 
     // decrement index by 1 if we have a prompt
-    const hasPrompt = !!this.get('prompt');
-    const contentIndex = hasPrompt ? selectedIndex - 1 : selectedIndex;
+    let hasPrompt = !!this.get('prompt');
+    let contentIndex = hasPrompt ? selectedIndex - 1 : selectedIndex;
 
-    const selection = content[contentIndex];
+    let selection = content.objectAt(contentIndex);
 
-    const optionValuePath = this.get('optionValuePath');
-    const value = optionValuePath ? get(selection, optionValuePath) : selection;
+    let optionValuePath = this.get('optionValuePath');
+    let value = optionValuePath ? get(selection, optionValuePath) : selection;
 
     // set the local, shadowed selection to avoid leaking
     // changes to `selection` out via 2-way binding
     this.set('_selection', value);
 
-    const changeCallback = this.get('action');
+    let changeCallback = this.get('action');
     changeCallback(value);
   }
 });
